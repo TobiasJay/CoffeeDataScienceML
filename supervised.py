@@ -44,6 +44,27 @@ y = ml_ready_df['orders_per_day']
 
 
 X_train_val, X_test, y_train_val, y_test = train_test_split(X, y, test_size=0.2)
+X_train, X_val, y_train, y_val = train_test_split(X_train_val, y_train_val, test_size=0.3)
+
+# Initialize GBM regressor
+gbm_regressor = GradientBoostingRegressor(n_estimators=75)
+
+# Train GBM regressor
+gbm_regressor.fit(X_train, y_train)
+
+# Make predictions on training and validation sets
+y_train_pred = gbm_regressor.predict(X_train)
+y_val_pred = gbm_regressor.predict(X_val)
+
+# Calculate RMSE for training set
+rmse_train = np.sqrt(mean_squared_error(y_train, y_train_pred))
+
+# Calculate RMSE for validation set
+rmse_val = np.sqrt(mean_squared_error(y_val, y_val_pred))
+
+print("Training RMSE:", rmse_train)
+print("Validation RMSE:", rmse_val)
+
 
 estimators = [50, 60, 75, 100, 150, 200, 500, 1000]
 for num_estimators in estimators:
@@ -81,49 +102,4 @@ for num_estimators in estimators:
     print("Average Validation RMSE:", avg_rmse_val)
     print("\n")
 
-
-'''
-
-# Initialize AdaBoost classifier
-ada_clf = AdaBoostClassifier(n_estimators=15, random_state=42)
-
-# Train AdaBoost classifier
-ada_clf.fit(X_train, y_train)
-
-# Make predictions on the testing/validation set
-ada_preds = ada_clf.predict(X_val)
-
-# Calculate accuracy of AdaBoost classifier
-ada_mse = mean_squared_error(y_val, ada_preds)
-ada_mse_test = mean_squared_error(y_test, ada_clf.predict(X_test))
-
-print("Validation AdaBoost Root Mean Squared Error:", np.sqrt(ada_mse))
-print("Test AdaBoost Root Mean Squared Error:", np.sqrt(ada_mse_test))
-
-# Initialize Random Forest classifier
-rf_clf = RandomForestClassifier()
-
-# Train Random Forest classifier
-rf_clf.fit(X_train, y_train)
-
-# Make predictions on the testing/validation set
-rf_preds = rf_clf.predict(X_val)
-
-# Calculate accuracy of Random Forest classifier
-rf_mse = mean_squared_error(y_val, rf_preds)
-rf_mse_test = mean_squared_error(y_test, rf_clf.predict(X_test))
-print("Validation Random Forest Root Mean Squared Error:", np.sqrt(rf_mse))    
-print("Test Random Forest Root Mean Squared Error:", np.sqrt(rf_mse_test))
-'''
-
-
-
-
-
-
-
-
-
-
-
-
+    # Now I want to see how well the model generalizes to the test set
