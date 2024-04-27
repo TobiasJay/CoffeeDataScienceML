@@ -67,10 +67,12 @@ print("Training RMSE:", rmse_train)
 # Lets graph the predictions
 
 plt.figure(figsize=(12, 6))
-plt.plot(grouped_df['date'], y_train_pred)
+plt.plot(grouped_df['date'], y_train_pred, color='red', label='Predicted Orders per Day')
+plt.plot(grouped_df['date'], grouped_df['orders_per_day'], color='blue', label='Actual Orders per Day')
 plt.xlabel('Date')
 plt.ylabel('Orders per Day')
 plt.title('Predicted Orders per Day over time')
+plt.legend()
 plt.show()
 
 
