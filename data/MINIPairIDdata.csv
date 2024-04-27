@@ -1,0 +1,24 @@
+transaction_id,transaction_date,transaction_time,transaction_qty,store_id,store_location,product_id,unit_price,product_category,product_type,product_detail,pair_id
+1,1/1/2023,7:06:11,1,5,Lower Manhattan,32,3.0,Coffee,Gourmet brewed coffee,Ethiopia Rg,1
+1,1/1/2023,7:06:11,1,5,Lower Manhattan,32,3.0,Coffee,Gourmet brewed coffee,Ethiopia Rg,1
+2,1/1/2023,7:08:56,1,5,Lower Manhattan,57,3.1,Tea,Brewed Chai tea,Spicy Eye Opener Chai Lg,2
+2,1/1/2023,7:08:56,1,5,Lower Manhattan,57,3.1,Tea,Brewed Chai tea,Spicy Eye Opener Chai Lg,2
+3,1/1/2023,7:14:04,1,5,Lower Manhattan,59,4.5,Drinking Chocolate,Hot chocolate,Dark chocolate Lg,3
+3,1/1/2023,7:14:04,1,5,Lower Manhattan,59,4.5,Drinking Chocolate,Hot chocolate,Dark chocolate Lg,3
+4,1/1/2023,7:20:24,1,5,Lower Manhattan,22,2.0,Coffee,Drip coffee,Our Old Time Diner Blend Sm,-1
+5,1/1/2023,7:22:41,1,5,Lower Manhattan,57,3.1,Tea,Brewed Chai tea,Spicy Eye Opener Chai Lg,4
+5,1/1/2023,7:22:41,1,5,Lower Manhattan,57,3.1,Tea,Brewed Chai tea,Spicy Eye Opener Chai Lg,4
+6,1/1/2023,7:22:41,1,5,Lower Manhattan,77,3.0,Bakery,Scone,Oatmeal Scone,4
+7,1/1/2023,7:25:49,1,5,Lower Manhattan,22,2.0,Coffee,Drip coffee,Our Old Time Diner Blend Sm,-1
+8,1/1/2023,7:33:34,1,5,Lower Manhattan,28,2.0,Coffee,Gourmet brewed coffee,Columbian Medium Roast Sm,5
+8,1/1/2023,7:33:34,1,5,Lower Manhattan,28,2.0,Coffee,Gourmet brewed coffee,Columbian Medium Roast Sm,5
+9,1/1/2023,7:39:13,1,5,Lower Manhattan,39,4.25,Coffee,Barista Espresso,Latte Rg,-1
+10,1/1/2023,7:39:34,1,5,Lower Manhattan,58,3.5,Drinking Chocolate,Hot chocolate,Dark chocolate Rg,6
+10,1/1/2023,7:39:34,1,5,Lower Manhattan,58,3.5,Drinking Chocolate,Hot chocolate,Dark chocolate Rg,6
+11,1/1/2023,7:43:05,1,5,Lower Manhattan,56,2.55,Tea,Brewed Chai tea,Spicy Eye Opener Chai Rg,-1
+12,1/1/2023,7:44:35,1,5,Lower Manhattan,33,3.5,Coffee,Gourmet brewed coffee,Ethiopia Lg,7
+12,1/1/2023,7:44:35,1,5,Lower Manhattan,33,3.5,Coffee,Gourmet brewed coffee,Ethiopia Lg,7
+13,1/1/2023,7:45:51,1,5,Lower Manhattan,51,3.0,Tea,Brewed Black tea,Earl Grey Lg,-1
+14,1/1/2023,7:48:19,1,5,Lower Manhattan,57,3.1,Tea,Brewed Chai tea,Spicy Eye Opener Chai Lg,-1
+15,1/1/2023,7:52:36,1,5,Lower Manhattan,87,3.0,Coffee,Barista Espresso,Ouro Brasileiro shot,8
+15,1/1/2023,7:52:36,1,5,Lower Manhattan,87,3.0,Coffee,Barista Espresso,Ouro Brasileiro shot,8
