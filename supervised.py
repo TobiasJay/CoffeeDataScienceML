@@ -42,15 +42,17 @@ ml_ready_df = grouped_df[['month', 'day_of_month', 'day_of_week', 'orders_per_da
 X = ml_ready_df.drop('orders_per_day', axis=1)
 y = ml_ready_df['orders_per_day']
 
-estimators = [100, 150, 200, 300, 500, 1000, 1100]
+
+X_train_val, X_test, y_train_val, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+estimators = [75, 100, 150, 200, 500, 1000]
 for num_estimators in estimators:
     avg_rmse_train = 0
     avg_rmse_val = 0
     for i in range(30):
-        # training: 60%, testing: 20%, validation: 20%
-        X_train, X_test_val, y_train, y_test_val = train_test_split(X, y, test_size=0.4)
         #split the test_val set into test and validation (20% each)
-        X_test, X_val, y_test, y_val = train_test_split(X_test_val, y_test_val, test_size=0.5)
+
+        X_train, X_val, y_train, y_val = train_test_split(X_train_val, y_train_val, test_size=0.3)
 
         # Initialize GBM regressor
         gbm_regressor = GradientBoostingRegressor(n_estimators=num_estimators)
