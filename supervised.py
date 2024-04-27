@@ -64,8 +64,8 @@ rmse_train = np.sqrt(mean_squared_error(y, y_train_pred))
 print("Training RMSE:", rmse_train)
 #print("Test RMSE:", rmse_val)
 
-# Lets graph the predictions
-
+# Lets graph the predictions vs. the actual values
+'''
 plt.figure(figsize=(12, 6))
 plt.plot(grouped_df['date'], y_train_pred, color='red', label='Predicted Orders per Day')
 plt.plot(grouped_df['date'], grouped_df['orders_per_day'], color='blue', label='Actual Orders per Day')
@@ -74,9 +74,14 @@ plt.ylabel('Orders per Day')
 plt.title('Predicted Orders per Day over time')
 plt.legend()
 plt.show()
+'''
 
-
-
+# what about future values? lets predict the next 30 days
+# Month is 1-12
+# Day of the month is 1-31
+# Day of the week is 0-6, 0 is Monday, 6 is Sunday
+customers = gbm_regressor.predict([[7, 1, 5]])
+print("Predicted number of customers on July 1st, 2020:", customers)
 '''
 estimators = [50, 60, 75, 100, 150, 200, 500, 1000]
 for num_estimators in estimators:
