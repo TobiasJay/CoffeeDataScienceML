@@ -43,13 +43,13 @@ X = ml_ready_df.drop('orders_per_day', axis=1)
 y = ml_ready_df['orders_per_day']
 
 
-X_train_val, X_test, y_train_val, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+X_train_val, X_test, y_train_val, y_test = train_test_split(X, y, test_size=0.2)
 
-estimators = [75, 100, 150, 200, 500, 1000]
+estimators = [50, 60, 75, 100, 150, 200, 500, 1000]
 for num_estimators in estimators:
     avg_rmse_train = 0
     avg_rmse_val = 0
-    for i in range(30):
+    for i in range(100):
         #split the test_val set into test and validation (20% each)
 
         X_train, X_val, y_train, y_val = train_test_split(X_train_val, y_train_val, test_size=0.3)
@@ -74,8 +74,8 @@ for num_estimators in estimators:
         #print("Validation RMSE:", rmse_val)
         avg_rmse_train += rmse_train
         avg_rmse_val += rmse_val
-    avg_rmse_train /= 30
-    avg_rmse_val /= 30
+    avg_rmse_train /= 100
+    avg_rmse_val /= 100
     print("Number of Estimators:", num_estimators)
     print("Average Training RMSE:", avg_rmse_train)
     print("Average Validation RMSE:", avg_rmse_val)
