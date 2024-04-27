@@ -43,29 +43,39 @@ X = ml_ready_df.drop('orders_per_day', axis=1)
 y = ml_ready_df['orders_per_day']
 
 
-X_train_val, X_test, y_train_val, y_test = train_test_split(X, y, test_size=0.2)
-X_train, X_val, y_train, y_val = train_test_split(X_train_val, y_train_val, test_size=0.3)
+#X_train_val, X_test, y_train_val, y_test = train_test_split(X, y, test_size=0.2)
 
 # Initialize GBM regressor
 gbm_regressor = GradientBoostingRegressor(n_estimators=75)
 
 # Train GBM regressor
-gbm_regressor.fit(X_train, y_train)
+gbm_regressor.fit(X, y)
 
 # Make predictions on training and validation sets
-y_train_pred = gbm_regressor.predict(X_train)
-y_val_pred = gbm_regressor.predict(X_val)
+y_train_pred = gbm_regressor.predict(X)
+#y_val_pred = gbm_regressor.predict(X_test)
 
 # Calculate RMSE for training set
-rmse_train = np.sqrt(mean_squared_error(y_train, y_train_pred))
+rmse_train = np.sqrt(mean_squared_error(y, y_train_pred))
 
 # Calculate RMSE for validation set
-rmse_val = np.sqrt(mean_squared_error(y_val, y_val_pred))
+#rmse_val = np.sqrt(mean_squared_error(y_test, y_val_pred))
 
 print("Training RMSE:", rmse_train)
-print("Validation RMSE:", rmse_val)
+#print("Test RMSE:", rmse_val)
+
+# Lets graph the predictions
+
+plt.figure(figsize=(12, 6))
+plt.plot(grouped_df['date'], y_train_pred)
+plt.xlabel('Date')
+plt.ylabel('Orders per Day')
+plt.title('Predicted Orders per Day over time')
+plt.show()
 
 
+
+'''
 estimators = [50, 60, 75, 100, 150, 200, 500, 1000]
 for num_estimators in estimators:
     avg_rmse_train = 0
@@ -103,3 +113,4 @@ for num_estimators in estimators:
     print("\n")
 
     # Now I want to see how well the model generalizes to the test set
+'''
