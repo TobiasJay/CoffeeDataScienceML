@@ -60,10 +60,9 @@ def main():
     # Okay so now we have a matrix. We want to look at an item and see what other items were most commonly paired with it.
     # One question arises: what if there is never an item that was never paired with another item? What do we recommend?
     
-    print(ref_matrix[58].argsort()[-5:][::-1])
-    print(ref_matrix[58])
+    print(ref_matrix[50].argsort()[-5:][::-1])
+    print(ref_matrix[50])
     print(id_to_name[50])
-    print(id_to_name[73])
 
     # THis is good enough for now. Adding a subsetting feature for isolating bakery vs. drinks would be a good next step. If you get a scone, offer a drink. If you get a drink, offer a scone or a cookie.
 
