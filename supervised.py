@@ -82,6 +82,9 @@ plt.show()
 # Day of the week is 0-6, 0 is Monday, 6 is Sunday
 customers = gbm_regressor.predict([[7, 1, 5]])
 print("Predicted number of customers on July 1st, 2020:", customers)
+
+# This little test above demonstrates how overfit my current model is. The model doesn't seem to consider the day of the week at all, which is an important feature. 
+
 '''
 estimators = [50, 60, 75, 100, 150, 200, 500, 1000]
 for num_estimators in estimators:
