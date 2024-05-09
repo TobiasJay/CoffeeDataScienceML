@@ -1,0 +1,28 @@
+Number of Estimators: 5
+Training ada RMSE: 4.583865617576501
+Validation ada RMSE: 3.255881391630174
+
+
+Number of Estimators: 6
+Training ada RMSE: 8.087155247675167
+Validation ada RMSE: 8.588444668167911
+
+
+Number of Estimators: 7
+Training ada RMSE: 7.977711952684178
+Validation ada RMSE: 8.214691938007391
+
+
+Number of Estimators: 8
+Training ada RMSE: 9.525605912486618
+Validation ada RMSE: 8.711613982599216
+
+
+Number of Estimators: 9
+Training ada RMSE: 8.714741533746139
+Validation ada RMSE: 9.04753708324687
+
+
+Number of Estimators: 10
+Training ada RMSE: 5.807757570698005
+Validation ada RMSE: 8.353209508381141

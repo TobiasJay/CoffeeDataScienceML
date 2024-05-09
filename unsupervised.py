@@ -61,8 +61,20 @@ def main():
     # One question arises: what if there is never an item that was never paired with another item? What do we recommend?
     
     print(ref_matrix[50].argsort()[-5:][::-1])
-    print(ref_matrix[50])
-    print(id_to_name[50])
+    #print(ref_matrix[50])
+    #print(id_to_name[50])
+    #coffee = data.loc[data['product_category'] == 'Bakery']
+    #print(coffee['product_detail'].value_counts().head(60))
+
+    for id in id_to_name:
+        print(id_to_name[id])
+        top_3_ids = ref_matrix[id].argsort()[-3:][::-1]
+        print("Top 3: ")
+        for i in top_3_ids:
+            print(id_to_name[i])
+
+        print()
+
 
     # THis is good enough for now. Adding a subsetting feature for isolating bakery vs. drinks would be a good next step. If you get a scone, offer a drink. If you get a drink, offer a scone or a cookie.
 

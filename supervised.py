@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import AdaBoostClassifier, RandomForestClassifier
+from xgboost import XGBClassifier
 from sklearn.metrics import mean_squared_error
 import numpy as np
 from sklearn.ensemble import GradientBoostingRegressor
@@ -37,59 +38,74 @@ plt.title('Orders per Day over time')
 plt.show()
 '''
 
+# I want to condense the month and day of the month features into one. Hopefully this will make the day of the week
+# feature more important.
+for index, row in grouped_df.iterrows():
+    grouped_df.at[index, 'Year_Percent'] = (index + 1) / 365
+
+
 # Use only 3 features. Month, day of the month, and day of the week. Its all the same year so we don't need that. and we don't need the date since its encapsulated in the other 3 features
-ml_ready_df = grouped_df[['month', 'day_of_month', 'day_of_week', 'orders_per_day']]
+ml_ready_df = grouped_df[['Year_Percent', 'orders_per_day']]
 X = ml_ready_df.drop('orders_per_day', axis=1)
 y = ml_ready_df['orders_per_day']
 
 
-#X_train_val, X_test, y_train_val, y_test = train_test_split(X, y, test_size=0.2)
+X_train_val, X_test, y_train_val, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 # Initialize GBM regressor
+# 75 estimators is overfit but idk what to do about it
 gbm_regressor = GradientBoostingRegressor(n_estimators=75)
 
 # Train GBM regressor
-gbm_regressor.fit(X, y)
+gbm_regressor.fit(X_train_val, y_train_val)
 
 # Make predictions on training and validation sets
 y_train_pred = gbm_regressor.predict(X)
-#y_val_pred = gbm_regressor.predict(X_test)
+y_val_pred = gbm_regressor.predict(X_test)
 
 # Calculate RMSE for training set
 rmse_train = np.sqrt(mean_squared_error(y, y_train_pred))
 
 # Calculate RMSE for validation set
-#rmse_val = np.sqrt(mean_squared_error(y_test, y_val_pred))
+rmse_val = np.sqrt(mean_squared_error(y_test, y_val_pred))
 
 print("Training RMSE:", rmse_train)
-#print("Test RMSE:", rmse_val)
+print("Test RMSE:", rmse_val)
 
 # Lets graph the predictions vs. the actual values
-'''
+
 plt.figure(figsize=(12, 6))
 plt.plot(grouped_df['date'], y_train_pred, color='red', label='Predicted Orders per Day')
 plt.plot(grouped_df['date'], grouped_df['orders_per_day'], color='blue', label='Actual Orders per Day')
 plt.xlabel('Date')
 plt.ylabel('Orders per Day')
-plt.title('Predicted Orders per Day over time')
+plt.title('Orders per Day over time')
 plt.legend()
 plt.show()
-'''
+
 
 # what about future values? lets predict the next 30 days
 # Month is 1-12
 # Day of the month is 1-31
 # Day of the week is 0-6, 0 is Monday, 6 is Sunday
-customers = gbm_regressor.predict([[7, 1, 5]])
+customers = gbm_regressor.predict([[0.8]]) # August 7th
 print("Predicted number of customers on July 1st, 2020:", customers)
 
 # This little test above demonstrates how overfit my current model is. The model doesn't seem to consider the day of the week at all, which is an important feature. 
 
+# Below is the estimator test for the AdaBoost model and comparing it to the gbm model (adaboost performs wayy)
+
+
+
 '''
-estimators = [50, 60, 75, 100, 150, 200, 500, 1000]
+X_train_val, X_test, y_train_val, y_test = train_test_split(X, y, test_size=0.8)
+print(X_train_val)
+estimators = [5, 6, 7, 8, 9, 10]
 for num_estimators in estimators:
     avg_rmse_train = 0
     avg_rmse_val = 0
+    avg_ada_rmse_train = 0
+    avg_ada_rmse_val = 0
     for i in range(100):
         #split the test_val set into test and validation (20% each)
 
@@ -97,30 +113,40 @@ for num_estimators in estimators:
 
         # Initialize GBM regressor
         gbm_regressor = GradientBoostingRegressor(n_estimators=num_estimators)
+        ada_boost = AdaBoostClassifier(n_estimators=num_estimators)
 
         # Train GBM regressor
         gbm_regressor.fit(X_train, y_train)
-
+        ada_boost.fit(X_train, y_train)
         # Make predictions on training and validation sets
         y_train_pred = gbm_regressor.predict(X_train)
         y_val_pred = gbm_regressor.predict(X_val)
-
+        y_train_pred_ada = ada_boost.predict(X_train)
+        y_val_pred_ada = ada_boost.predict(X_val)
         # Calculate RMSE for training set
         rmse_train = np.sqrt(mean_squared_error(y_train, y_train_pred))
-
+        ada_rmse_train = np.sqrt(mean_squared_error(y_train, y_train_pred_ada))
         # Calculate RMSE for validation set
         rmse_val = np.sqrt(mean_squared_error(y_val, y_val_pred))
-
+        ada_rmse_val = np.sqrt(mean_squared_error(y_val, y_val_pred_ada))
         #print("Training RMSE:", rmse_train)
         #print("Validation RMSE:", rmse_val)
         avg_rmse_train += rmse_train
         avg_rmse_val += rmse_val
+        avg_ada_rmse_train += ada_rmse_train
+        avg_ada_rmse_val += ada_rmse_val
     avg_rmse_train /= 100
     avg_rmse_val /= 100
+    avg_ada_rmse_train /= 100
+    avg_ada_rmse_val /= 100
     print("Number of Estimators:", num_estimators)
-    print("Average Training RMSE:", avg_rmse_train)
-    print("Average Validation RMSE:", avg_rmse_val)
+    print("Training gbm RMSE:", avg_rmse_train)
+    print("Validation gbm RMSE:", avg_rmse_val)
+    print("Training ada RMSE:", avg_ada_rmse_train)
+    print("Validation ada RMSE:", avg_ada_rmse_val)
+    print(ada_rmse_train)
     print("\n")
-
-    # Now I want to see how well the model generalizes to the test set
 '''
+    # Now I want to see how well the model generalizes to the test set
+
+
